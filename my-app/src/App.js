@@ -1,23 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
+import Components from './Components';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" m={2} pt={3}>
+          <Box gridColumn="span 8">
+            <Components />
+          </Box>
+      </Box>
     </div>
   );
 }
