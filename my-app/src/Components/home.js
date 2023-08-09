@@ -5,8 +5,7 @@ import { Box, TextField, InputAdornment, CardActionArea } from '@mui/material';
 import configData from "../config.json";
 import SearchIcon from '@mui/icons-material/Search';
 import { makeStyles } from "@material-ui/core/styles";
-import Chip from '@mui/material/Chip';
-import Typography from '@mui/material/Typography';
+
 import axios from "axios";
 
 const useStyles = makeStyles({
@@ -50,17 +49,23 @@ export default function Home() {
         }
 
     }
+    const handleOnClick = (value) => {
+        window.location = "/image/" + value
+    }
+
     const renderData = (inputData) => {
         return (inputData?inputData.map((item) => (
+            
             <ImageListItem key={item.img}>
               <img
-                src={`${item.userImageURL}?w=164&h=164&fit=crop&auto=format`}
-                srcSet={`${item.userImageURL}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                src={`${item.previewURL}?w=164&h=164&fit=crop&auto=format`}
+                srcSet={`${item.previewURL}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                 alt={item.tags}
                 loading="lazy"
+                onClick={() => handleOnClick(item.id)} 
               />
             </ImageListItem>
-          )):"No immage")
+          )):"No image")
     }
     const classes = useStyles();
     console.log(searchData)
