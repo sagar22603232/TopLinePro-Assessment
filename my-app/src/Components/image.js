@@ -73,8 +73,8 @@ export default function Image(){
           alt="Paella dish"
         />
         <CardContent>
-          <Typography variant="body2" color="text.secondary">
-           {``}
+          <Typography variant="h5" color="text.secondary" textAlign="left">
+           {`${item.tags}`}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
