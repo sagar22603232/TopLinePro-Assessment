@@ -21,10 +21,12 @@ const useStyles = makeStyles({
             color: "#000"
         },
     },
-    card:{
+    card: {
         width: '95vw',
+
     }
 });
+//Function to show all images preview and search
 export default function Home() {
     const baseURL = configData.BACKEND_URL
     const apiKey = configData.API_KEY
@@ -42,7 +44,7 @@ export default function Home() {
             setSearchData(null);
         }
         else {
-            axios.get(baseURL + `?key=${apiKey}`+`&q=${event.target.value}&image_type=photo`)
+            axios.get(baseURL + `?key=${apiKey}` + `&q=${event.target.value}&image_type=photo`)
                 .then((response) => {
                     setSearchData(response.data.hits);
                 })
@@ -57,44 +59,46 @@ export default function Home() {
     }
 
     const renderData = (inputData) => {
-        return (inputData?inputData.map((item) => (
-            
+        return (inputData ? inputData.map((item) => (
+
             <ImageListItem key={item.img}>
-              <img
-                src={`${item.previewURL}?w=164&h=164&fit=crop&auto=format`}
-                srcSet={`${item.previewURL}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                alt={item.tags}
-                loading="lazy"
-                onClick={() => handleOnClick(item.id)} 
-              />
+                <img
+                    src={`${item.previewURL}?w=164&h=164&fit=crop&auto=format`}
+                    srcSet={`${item.previewURL}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                    alt={item.tags}
+                    loading="lazy"
+                    onClick={() => handleOnClick(item.id)}
+                />
             </ImageListItem>
-          )):"No image")
+        )) : "No image")
     }
     const classes = useStyles();
     console.log(searchData)
     return (
         <div className={classes.card}>
-        <Box
-            display="flex"
-        >
-            <TextField fullWidth label="Search" id="outlined-search" type="search" onChange={searchTags}
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <SearchIcon sx={{ color: "#000", fontSize: "medium" }} />
-                        </InputAdornment>
-                    )
-                }}
-                className={classes.root}
-            />
-        </Box>
-        <ImageList sx={{  width: '95vw',
-    height: '90vh'}} cols={4} >
-         {searchData ?renderData(searchData)
-                     : renderData(data)
-                  }
-            
-        </ImageList>
+            <Box
+                display="flex"
+            >
+                <TextField fullWidth label="Search" id="outlined-search" type="search" onChange={searchTags}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <SearchIcon sx={{ color: "#000", fontSize: "medium" }} />
+                            </InputAdornment>
+                        )
+                    }}
+                    className={classes.root}
+                />
+            </Box>
+            <ImageList sx={{
+                width: '95vw',
+                height: '90vh'
+            }} cols={4} >
+                {searchData ? renderData(searchData)
+                    : renderData(data)
+                }
+
+            </ImageList>
         </div>
-      );
+    );
 }
