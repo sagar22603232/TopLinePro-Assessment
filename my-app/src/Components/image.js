@@ -23,13 +23,26 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import CommentIcon from '@material-ui/icons/Comment';
 import DownloadIcon from '@mui/icons-material/Download';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import ClearIcon from '@mui/icons-material/Clear';
 
 import axios from "axios";
+const useStyles = makeStyles({
+    cardHeader: {
+       textAlign:"left",
+    },
+    card:{
+    width: '50vw',
+    spacing: 0,
+    justify: 'space-around',
+    },
+});
 export default function Image(){
     let { id } = useParams();
+    
     const baseURL = configData.BACKEND_URL
     const apiKey = configData.API_KEY
     const [data, setData] = React.useState(null);
+    const classes = useStyles();
     React.useEffect(() => {
         axios.get(baseURL + `?key=${apiKey}`+`&id=${id}&image_type=photo`)
             .then((response) => {
@@ -37,18 +50,26 @@ export default function Image(){
                 // console.log(data.hits)
             });
     }, []);
-  
+    const handleOnClick = () => {
+        window.location = "/"
+    }
     return (data?data.map((item) => (
-        <Card>
-                 <CardHeader
+        <Card className={classes.card}>
+         
+                 <CardHeader className={classes.cardHeader}
         avatar={
             <Avatar alt={`${item.user}`} src={`${item.userImageURL}`}/>
         }
+        action={
+            <IconButton aria-label="Return" onClick={() => handleOnClick()} >
+              <ClearIcon />
+            </IconButton>
+          }
         title={`${item.user}`}
       />
         <CardMedia
           component="img"
-          image={`${item.largeImageURL}?w=164&h=164&fit=crop&auto=format`}
+          image={`${item.webformatURL}?w=164&h=164&fit=crop&auto=format`}
           alt="Paella dish"
         />
         <CardContent>

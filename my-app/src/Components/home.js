@@ -19,7 +19,10 @@ const useStyles = makeStyles({
         },
         "& .MuiInputLabel-outlined": {
             color: "#000"
-        }
+        },
+    },
+    card:{
+        width: '95vw',
     }
 });
 export default function Home() {
@@ -70,8 +73,7 @@ export default function Home() {
     const classes = useStyles();
     console.log(searchData)
     return (
-        <div>
-        <h2 className="font-link">Search: </h2>
+        <div className={classes.card}>
         <Box
             display="flex"
         >
@@ -86,7 +88,8 @@ export default function Home() {
                 className={classes.root}
             />
         </Box>
-        <ImageList sx={{ width: '100%', height: 700 }} cols={5} rowHeight={164} >
+        <ImageList sx={{  width: '95vw',
+    height: '90vh'}} cols={4} >
          {searchData ?renderData(searchData)
                      : renderData(data)
                   }
